@@ -4,6 +4,15 @@ const router = express.Router()
 // import Fruit model to access database
 const Fruit = require('../models/fruit')
 
+// DELETE - Delete a fruit from the database
+router.delete('/:id', (req, res) => {
+    const fruitId = req.params.id
+    Fruit.findByIdAndRemove(fruitId)
+        .then(() => {
+            res.redirect('/fruits')
+        })
+        .catch(err => res.json(err))
+})
 // GET - Update form for changing fruits
 router.get('/:id/edit', (req, res) => {
     // assign id from request parameter to a variable
