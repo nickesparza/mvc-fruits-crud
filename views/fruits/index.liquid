@@ -1,0 +1,10 @@
+{% layout 'layout.liquid' %}
+
+{% block content %}
+    <div>
+        {% for fruit in fruits %}
+            <p>Fruit Name: {{fruit.name}}</p>
+            <p>Fruit Color: {{fruit.color}}</p>
+        {% endfor %}
+    </div>
+{% endblock %}
