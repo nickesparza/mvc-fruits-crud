@@ -71,20 +71,6 @@ router.get('/', (req, res) => {
     })
 })
 
-// GET - Show
-// localhost:3000/fruits/:id (id will change with each id that gets passed in)
-router.get('/:id', (req, res) => {
-    // intake ID as a parameter
-    const fruitId = req.params.id
-    // mongoose findById
-    Fruit.findById(fruitId)
-        .then(fruit => {
-            // res.json(fruit)
-            res.render('fruits/show', {fruit})
-        })
-        .catch(err => {res.json(err)})
-})
-
 // seed route
 // insert many items into the database just by accessing this route
 // localhost:3000/fruits/seed
@@ -105,14 +91,25 @@ router.get('/seed', (req, res) => {
             // add data to database
             Fruit.create(startFruits)
             .then(data => {
+                // return data as JSON to view
                 res.json(data)
             })
             .catch(console.error)
         })
-        
-    
+})
 
-    // return data as JSON to view
+// GET - Show
+// localhost:3000/fruits/:id (id will change with each id that gets passed in)
+router.get('/:id', (req, res) => {
+    // intake ID as a parameter
+    const fruitId = req.params.id
+    // mongoose findById
+    Fruit.findById(fruitId)
+        .then(fruit => {
+            // res.json(fruit)
+            res.render('fruits/show', {fruit})
+        })
+        .catch(err => {res.json(err)})
 })
 
 module.exports = router
