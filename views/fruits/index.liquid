@@ -3,7 +3,7 @@
 {% block content %}
     <div>
         {% for fruit in fruits %}
-            <p>Fruit Name: {{fruit.name}}</p>
+            <a href="/fruits/{{fruit._id}}">Fruit Name: {{fruit.name}}</a>
             <p>Fruit Color: {{fruit.color}}</p>
         {% endfor %}
     </div>

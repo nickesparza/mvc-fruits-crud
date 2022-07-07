@@ -1,0 +1,9 @@
+{% layout 'layout.liquid' %}
+
+{% block content %}
+    <div>
+        <p>Fruit Name: {{fruit.name}}</p>
+        <p>Fruit Color: {{fruit.color}}</p>
+        <a href="/fruits/{{fruit._id}}/edit">Edit {{fruit.name}}</a>
+    </div>
+{% endblock %}
