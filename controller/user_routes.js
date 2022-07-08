@@ -46,9 +46,57 @@ router.get('/login', (req, res) => {
     res.render('users/login')
 })
 // POST to log in and create session
+router.post('/login', async (req, res) => {
+    console.log('this is the request object', req)
+    // destructure data from request body
+    const { username, password } = req.body
+    // console.log('this is the username', username)
+    // console.log('this is password', password)
+    console.log('this is the session: ', req.session)
 
+    // find user and check if they exist
+    User.findOne({ username })
+        .then( async (user) => {
+            // if they do, compare entered password with stored hash
+            if (user) {
+                //compare password
+                // bcrypt.compare evaluates to truthy or falsey value
+                const result = await bcrypt.compare(password, user.password)
+                // if passwords match, use newly created session object
+                if (result) {
+                    // if compare comes back truthy, store user properties in the session
+                    req.session.username = username
+                    req.session.loggedIn = true
+                    // redirect to '/fruits' page
+                    console.log('this is the session after login: ', req.session)
+                    res.redirect('/fruits')
+                } else {
+                    // if passwords don't match, send error message
+                    // send a res.json error message
+                    res.json({ error: 'username or password incorrect' })
+                }
+            } else {
+                // send an error if user doesn't exist
+                res.json({ error: 'user does not exist' })
+            }
+        })
+        // if username doesn't exist, redirect to signup page
+        .catch(err => {
+            console.log(err)
+            res.json(err)
+        })
+        .catch(err => {res.redirect('/users/signup')})   
+})
 // one logout route
 // GET that calls destroy on current session
+router.get('/logout', (req, res) => {
+    req.session.destroy(ret => {
+        console.log('this is the logout error: ', ret)
+        console.log('session has been destroyed')
+        console.log(req.session)
+        res.redirect('/fruits')
+    })
+})
 // add 'are you sure' page if time allows
 
 
