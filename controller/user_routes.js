@@ -42,6 +42,9 @@ router.post('/signup', async (req, res) => {
 
 // two login routes
 // GET to show signin form
+router.get('/login', (req, res) => {
+    res.render('users/login')
+})
 // POST to log in and create session
 
 // one logout route
