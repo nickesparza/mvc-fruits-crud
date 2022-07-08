@@ -8,6 +8,6 @@ body {
     margin: 12px;
 }
 
-a:hover {
-    color: rgb(218, 218, 218);
+a {
+    margin: 5px;
 }
