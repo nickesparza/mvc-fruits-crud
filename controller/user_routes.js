@@ -99,7 +99,5 @@ router.get('/logout', (req, res) => {
 })
 // add 'are you sure' page if time allows
 
-
-
 // export router
 module.exports = router

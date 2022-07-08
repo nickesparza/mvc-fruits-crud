@@ -7,7 +7,8 @@ const { Schema, model } = mongoose
 const fruitSchema = new Schema({
     name: String,
     color: String,
-    readyToEat: Boolean
+    readyToEat: Boolean,
+    username: { type: String, default: '' }
 }, {
     timestamps: true
 })

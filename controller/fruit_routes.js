@@ -47,6 +47,9 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res) => {
     // set checkbox from on/off to true/false
     req.body.readyToEat = req.body.readyToEat === 'on'
+    // now that fruits can hold a username attribute, add a username to the fruit when it is created
+    // upon login, username is saved to session object and can be called in other locations
+    req.body.username = req.session.username
     // create item in database using request body
     Fruit.create(req.body)
         .then(fruit => {
@@ -69,6 +72,17 @@ router.get('/', (req, res) => {
     .catch(err => {
         res.json(err)
     })
+})
+
+router.get('/mine', (req, res) => {
+    Fruit.find({username: req.session.username})
+        .then(fruits => {
+            res.render('fruits/index', { fruits })
+        })
+        .catch(error => {
+            console.log(error)
+            res.json(error)
+        })
 })
 
 // seed route
