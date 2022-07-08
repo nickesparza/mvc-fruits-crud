@@ -2,13 +2,13 @@
 
 {% block content %}
     <div class="containter-md">
-        <form action="/user/signup" method="POST">
+        <form action="/users/signup" method="POST">
             <fieldset>
                 <legend>New User Signup</legend>
                 <label class="form-label" for="username">Username:</label>
                 <input type="text" id="username" name="username" class="form-control">
                 <label class="form-label" for="password">Password:</label>
-                <input type="text" id="password" name="password" class="form-control">
+                <input type="password" id="password" name="password" class="form-control">
             </fieldset>
             <input 
                 type="submit" 
