@@ -120,9 +120,16 @@ router.get('/:id', (req, res) => {
     const fruitId = req.params.id
     // mongoose findById
     Fruit.findById(fruitId)
+        // populate User model fields
+        // comment has an author field which is a reference to the user model
+        // string representation of the desired field
+        // this needs to be another model, and since author refers to the User model, it's allowed
+        .populate('comments.author')
         .then(fruit => {
             // res.json(fruit)
-            res.render('fruits/show', {fruit})
+            const userId = req.session.userId
+            const username = req.session.username
+            res.render('fruits/show', {fruit, userId, username})
         })
         .catch(err => {res.json(err)})
 })

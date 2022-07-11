@@ -24,5 +24,24 @@ router.post('/:fruitId', (req, res) => {
 })
 
 // DELETE route to delete a comment
+router.delete('/delete/:fruitId/:commentId', (req, res) => {
+    const fruitId = req.params.fruitId
+    const commentId = req.params.commentId
 
+    // find the fruit by its ID
+    Fruit.findById(fruitId) // return the single fruit document we want
+    // fruits can have many comments, so find the comment by its ID
+        .then(fruit => {
+            const comment = fruit.comments.id(commentId)
+            // remove the comment from the fruit
+            comment.remove()
+            // return saved comment
+            return fruit.save()
+        })
+        .then(fruit => {
+            res.redirect(`/fruits/${fruitId}`)
+        })
+        .catch(err => res.json(err))
+    
+})
 module.exports = router
