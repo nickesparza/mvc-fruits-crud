@@ -19,5 +19,26 @@
                 </form>
             </div>
         </article>
+        <div class="col-md-6">
+            <form action="/comments/{{fruit._id}}" method="POST">
+                <fieldset>
+                    <Legend>Add Comment</Legend>
+                    <label class="form-label" for="comment">Comment: </label>
+                    <input type="text" id="comment" name="note" class="form-control" placeholder="Enter comment here">
+            </fieldset>
+            <input class="btn btn-success" type="submit" value="Add Comment">
+            </form>
+        </div>
+        <div class="col-md-6">
+            {% if fruit.comments.length > 0 %}
+                <div class="container-sm justify-content-center">
+                    <div class="col-md-8 col-lg-6">
+                        {% for comment in fruit.comments %}
+                            <!-- <p>{{forloop.index0}}</p> -->
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}

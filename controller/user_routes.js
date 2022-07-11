@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
 
     // find user and check if they exist
     User.findOne({ username })
-        .then( async (user) => {
+        .then( async (user) => { // there should be a ._id in this return value
             // if they do, compare entered password with stored hash
             if (user) {
                 //compare password
@@ -67,6 +67,8 @@ router.post('/login', async (req, res) => {
                     // if compare comes back truthy, store user properties in the session
                     req.session.username = username
                     req.session.loggedIn = true
+                    // store user ID for use in associating fruits with their user
+                    req.session.userId = user._id
                     // redirect to '/fruits' page
                     console.log('this is the session after login: ', req.session)
                     res.redirect('/fruits')

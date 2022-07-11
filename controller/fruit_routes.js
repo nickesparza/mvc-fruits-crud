@@ -49,7 +49,8 @@ router.post('/', (req, res) => {
     req.body.readyToEat = req.body.readyToEat === 'on'
     // now that fruits can hold a username attribute, add a username to the fruit when it is created
     // upon login, username is saved to session object and can be called in other locations
-    req.body.username = req.session.username
+    // using the ._id, set the owner field of the created fruit
+    req.body.owner = req.session.userId
     // create item in database using request body
     Fruit.create(req.body)
         .then(fruit => {
@@ -75,7 +76,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/mine', (req, res) => {
-    Fruit.find({username: req.session.username})
+    Fruit.find({owner: req.session.userId})
         .then(fruits => {
             res.render('fruits/index', { fruits })
         })
